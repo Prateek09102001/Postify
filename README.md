@@ -59,7 +59,8 @@ The app will be running at **http://localhost:3000**.
 Pull requests are welcome! Feel free to **fork** this repository and contribute new features.
 
 ## 📜 License
-This project is licensed under the **MIT License**.
+This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file for more details.
+
 
 ---
 
