@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>User Dashboard</title>
+</head>
+<body class="bg-zinc-900 text-white min-h-screen">
+    <div class="max-w-4xl mx-auto py-10 px-6">
+        <!-- Logout Button -->
+        <div class="w-full flex justify-end">
+            <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-sm font-medium transition">
+                Logout
+            </a>
+        </div>
+
+        <!-- Welcome Section -->
+        <header class="mb-10 text-center">
+            <h3 class="text-3xl font-bold">
+                <span class="font-light">Hello</span> <%= user.name %> 👋🏻
+            </h3>
+            <p class="mt-2 text-zinc-400">You can create a new post.</p>
+        </header>
+
+        <!-- Create Post Section -->
+        <section class="mb-16">
+            <form action="/post" method="post" class="flex flex-col items-center">
+                <textarea 
+                    name="content" 
+                    placeholder="What's on your mind?" 
+                    class="w-full max-w-lg p-3 outline-none resize-none bg-zinc-800 text-white border-2 border-zinc-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    rows="4">
+                </textarea>
+                <button 
+                    type="submit" 
+                    class="mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md font-medium transition">
+                    Create New Post
+                </button>
+            </form>
+        </section>
+
+        <!-- Posts Section -->
+        <section class="posts">
+            <h3 class="text-lg text-zinc-400 mb-5">Your Posts</h3>
+            <div class="postContainer grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <% user.posts.reverse().forEach(function(post){ %>
+                    <div class="post bg-zinc-800 p-5 rounded-md shadow-md">
+                        <h4 class="text-blue-500 font-semibold mb-3">@<%= user.username %></h4>
+                        <p class="text-sm text-zinc-300 leading-relaxed"><%= post.content %></p>
+                        <small class="mt-2 inline-block"><%= post.likes.length %></small>
+                        <div class="btns flex justify-between items-center mt-1">
+                            <a href="/like/<%= post._id %>" class="text-blue-500 hover:underline text-sm"><%= post.likes.indexOf(user._id) === -1 ? "Like ❤" : "Unlike 💔" %></a>
+                            <a href="/edit/<%= post._id %>" class="text-zinc-400 hover:underline text-sm">Edit</a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
